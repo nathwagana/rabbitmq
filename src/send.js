@@ -2,16 +2,16 @@
 
 var amqp = require('amqplib/callback_api');
 
-amqp.connect('amqp://localhost', function(error0, connection) {
-    if (error0) {
-        throw error0;
+amqp.connect('amqps://ukirirue:HLCziFbXs5CNnbz9M2cqXo3ecmCl_IMW@jackal.rmq.cloudamqp.com/ukirirue', (err, connection) => {
+    if (err) {
+        throw err;
     }
-    connection.createChannel(function(error1, channel) {
-        if (error1) {
-            throw error1;
+    connection.createChannel((err, channel) => {
+        if (err) {
+            throw err;
         }
 
-        var queue = 'hello';
+        var queue = 'nova_fila';
         var msg = 'Hello World!';
 
         channel.assertQueue(queue, {
@@ -21,7 +21,7 @@ amqp.connect('amqp://localhost', function(error0, connection) {
 
         console.log(" [x] Sent %s", msg);
     });
-    setTimeout(function() {
+    setTimeout(() => {
         connection.close();
         process.exit(0);
     }, 500);
